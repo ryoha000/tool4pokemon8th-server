@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+
+	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
@@ -21,12 +22,12 @@ type LoginRequestBody struct {
 }
 
 type User struct {
-	ID          int    `json:"id"  db:"id"`
-	Name   string `json:"name"  db:"name"`
+	ID   int    `json:"id"  db:"id"`
+	Name string `json:"name"  db:"name"`
 	Pass string `json:"-"  db:"pass"`
 }
 
-func PostSignUpHandler(w http.ResponseWriter, r *http.Request) error {
+func signup(w http.ResponseWriter, r *http.Request) error {
 	if r.Method != http.MethodPost {
 		w.WriteHeader(http.StatusMethodNotAllowed) // 405
 		w.Write([]byte("only POST"))
